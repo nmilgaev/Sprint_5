@@ -12,24 +12,25 @@ from locators import (
     FILLINGS_SECTION_ACTIVE
 )
 
-driver = webdriver.Chrome()
-driver.maximize_window()
+class TestNavigationToSections:
+    def test_navigate_to_fillings_section(self, driver):
+        driver.get('https://stellarburgers.nomoreparties.site/')
+        driver.find_element(*FILLINGS_SECTION).click()
+        updated_button_fillings = driver.find_element(*FILLINGS_SECTION_ACTIVE)
+        updated_class_fillings = updated_button_fillings.get_attribute("class")
+        assert "tab_tab_type_current" in updated_class_fillings
 
-driver.get('https://stellarburgers.nomoreparties.site/')
+    def test_navigate_to_sauces_section(self, driver):
+        driver.get('https://stellarburgers.nomoreparties.site/')
+        driver.find_element(*SAUCES_SECTION).click()
+        updated_button_sauses = driver.find_element(*SAUCES_SECTION_ACTIVE)
+        updated_class_sauses = updated_button_sauses.get_attribute("class")
+        assert "tab_tab_type_current" in updated_class_sauses
 
-driver.find_element(*FILLINGS_SECTION).click()
-updated_button_fillings = driver.find_element(*FILLINGS_SECTION_ACTIVE)
-updated_class_fillings = updated_button_fillings.get_attribute("class")
-assert "tab_tab_type_current" in updated_class_fillings
-
-driver.find_element(*SAUCES_SECTION).click()
-updated_button_sauses = driver.find_element(*SAUCES_SECTION_ACTIVE)
-updated_class_sauses = updated_button_sauses.get_attribute("class")
-assert "tab_tab_type_current" in updated_class_sauses
-
-driver.find_element(*BUNS_SECTION).click()
-updated_button_buns = driver.find_element(*BUNS_SECTION_ACTIVE)
-updated_class_buns = updated_button_buns.get_attribute("class")
-assert "tab_tab_type_current" in updated_class_buns
-
-driver.quit()
+    def test_navigate_to_buns_section(self, driver):
+        driver.get('https://stellarburgers.nomoreparties.site/')
+        driver.find_element(*SAUCES_SECTION).click()
+        driver.find_element(*BUNS_SECTION).click()
+        updated_button_buns = driver.find_element(*BUNS_SECTION_ACTIVE)
+        updated_class_buns = updated_button_buns.get_attribute("class")
+        assert "tab_tab_type_current" in updated_class_buns
